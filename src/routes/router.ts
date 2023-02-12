@@ -6,5 +6,5 @@ export default function router(app: Application): void {
    * Every source are specifed here
    */
   app.use("/auth", authRouter);
-  app.use("/images", imagesRouter);
+  app.use("/image", imagesRouter);
 }

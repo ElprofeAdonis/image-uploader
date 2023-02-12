@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { RegisterUserSchema } from "../models/auth.model";
+import { LoginSchema, RegisterUserSchema } from "../models/auth.model";
 import authService from "../services/auth.service";
 import { BaseController } from "../types/base.controller";
 
@@ -13,19 +13,33 @@ class AuthController extends BaseController {
       });
       this.responseHandler(
         res,
-        { message: `User ${result.name} created successfully` },
+        {
+          message: `Welcome ${result.username}! user successfully stored in database`,
+        },
         200
       );
     } catch (error: any) {
       if (error.code && error.code === "P2002") {
-        this.responseHandler(res, { error: "User was already register" }, 400);
+        this.responseHandler(
+          res,
+          { error: "The typed user already exists in the database" },
+          400
+        );
       } else {
         this.errorHandler(res, error);
       }
     }
   }
-  public login(req: Request, res: Response) {
-    res.send("Hello World! Adonis ");
+
+  async login(req: Request, res: Response) {
+    try {
+      const data = await LoginSchema.validateAsync(req.body);
+      const result = await authService.login(data.email, data.password);
+
+      this.responseHandler(res, result, 200);
+    } catch (error: any) {
+      this.errorHandler(res, error);
+    }
   }
 }
 

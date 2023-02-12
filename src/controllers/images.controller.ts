@@ -1,13 +1,18 @@
 import { Request, Response } from "express";
 
 class ImagesController {
-  getImage(req: Request, res: Response) {
-    //to be defined
-    res.send("hello");
-  }
   uploadImage(req: Request, res: Response) {
     //to be defined
-    res.send("hello");
+    console.log("Saving phono");
+    console.log(req.body);
+    return res.json({
+      message: "Photo SUCCESSFULLY saved",
+    });
+  }
+
+  getImage(req: Request, res: Response) {
+    //to be defined
+    res.send("hello id de imagen");
   }
 }
 
