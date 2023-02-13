@@ -1,6 +1,7 @@
 import express, { Application } from "express";
 import bodyParser from "body-parser";
 import * as http from "http";
+import path from "path";
 import morgan from "morgan";
 
 const app = express();
@@ -8,6 +9,7 @@ const app = express();
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use("uploads", express.static(path.resolve("uploads")));
 
 export default class Server {
   //Load router

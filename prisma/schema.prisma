@@ -12,10 +12,22 @@ datasource db {
 
 model User {
   id        Int      @default(autoincrement()) @id
-  name      String?
+  username      String?
   email     String   @unique
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   
+  
+}
+
+model Image{
+  id        Int      @default(autoincrement()) @id
+  uuid         String  @default("test-test")
+  titulo       String
+  descripcion  String
+  imagePath    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
 }
