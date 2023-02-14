@@ -6,7 +6,8 @@ export async function createImage(
   uuid: string,
   titulo: string,
   descripcion: string,
-  imagePath: string
+  imagePath: string,
+  user_Id: number
 ): Promise<void> {
   await prisma.image.create({
     data: {
@@ -14,6 +15,11 @@ export async function createImage(
       titulo,
       descripcion,
       imagePath,
+      User: {
+        connect: {
+          id: user_Id,
+        },
+      },
     },
   });
 }

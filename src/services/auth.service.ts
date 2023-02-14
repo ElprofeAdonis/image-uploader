@@ -23,6 +23,7 @@ class AutService {
         promisify(jwt.sign).bind(jwt);
       const token = await promise(
         {
+          id: user.id,
           username: user.username,
           email: user.email,
           password: user.password,

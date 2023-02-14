@@ -2,15 +2,18 @@ import { Request, Response } from "express";
 import { createImage, getImage } from "../services/image.service";
 import { v4 as uuidv4 } from "uuid";
 
-export async function uploadImage(req: Request, res: Response) {
-  // const userId = req.user.id;
+interface IReguest extends Request {
+  user?: any;
+}
+export async function uploadImage(req: IReguest, res: Response) {
+  // const userId = req.user?.id;
   const { titulo, descripcion } = req.body;
   const imagePath = req.file?.path || "";
   const uuid = uuidv4();
 
-  // const userId = req.user.id;
+  const userId = req.user?.id;
 
-  await createImage(uuid, titulo, descripcion, imagePath);
+  await createImage(uuid, titulo, descripcion, imagePath, userId);
 
   return res.json({
     uuid,
